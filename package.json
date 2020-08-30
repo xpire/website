@@ -1,13 +1,12 @@
 {
-  "name": "gatsby-starter-ts",
-  "description": "A TypeScript starter for Gatsby that includes all you need to build amazing projects",
+  "name": "justinor.dev",
+  "description": "A TypeScript Gatsby personal website and blog.",
   "version": "1.0.0",
   "private": true,
-  "author": "João Pedro Schmitz <oi@joaopedro.cc> (joaopedro.cc)",
+  "author": "Justin Or (justinor.dev)",
   "license": "MIT",
   "keywords": [
     "gatsby",
-    "starter",
     "typescript"
   ],
   "scripts": {
@@ -33,9 +32,27 @@
     ]
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "framer-motion": "^2.6.5",
     "gatsby": "^2.22.5",
+    "gatsby-image": "^2.4.16",
+    "gatsby-plugin-layout": "^1.3.10",
+    "gatsby-plugin-offline": "^3.2.24",
+    "gatsby-plugin-sharp": "^2.6.28",
+    "gatsby-remark-copy-linked-files": "^2.3.12",
+    "gatsby-remark-images": "^3.3.26",
+    "gatsby-remark-prismjs": "^3.5.11",
+    "gatsby-remark-responsive-iframe": "^2.4.12",
+    "gatsby-remark-smartypants": "^2.3.10",
+    "gatsby-source-filesystem": "^2.3.25",
+    "gatsby-transformer-remark": "^2.8.29",
+    "gatsby-transformer-sharp": "^2.5.13",
+    "gh-pages": "^3.1.0",
+    "prismjs": "^1.21.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.1.1",
     "tsconfig-paths-webpack-plugin": "^3.2.0"
   },
   "devDependencies": {

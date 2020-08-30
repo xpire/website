@@ -1,17 +1,24 @@
 import React from 'react';
 import { PageProps } from 'gatsby';
 
-import Title from '@/components/Title';
+import Main from '../components/Main';
 
 const Home: React.FC<PageProps> = () => (
-  <main>
-    <Title />
-    <p>A TypeScript starter for Gatsby. Great for advanced users.</p>
+  <Main>
+    <h1>Hello!</h1>
     <p>
-      Follow me on Twitter (
-      <a href="https://twitter.com/jpedroschmitz">@jpedroschmitz</a>)
+      I'm a software developer with a passion for <code>algorithms</code>,{' '}
+      <cite>maths</cite> and everything in between!
     </p>
-  </main>
+    <p>
+      In pursuit for better mobile support, I rebuilt my website mobile first on
+      top of Gatsby + typescript.{' '}
+    </p>
+    <p>
+      If you use this site in mobile, you might see some really nice animations
+      :D{' '}
+    </p>
+  </Main>
 );
 
 export default Home;
