@@ -5,7 +5,7 @@ import Main from '../components/Main';
 
 const Home: React.FC<PageProps> = () => (
   <Main>
-    <h1>Hello!</h1>
+    <h2>Hello!</h2>
     <p>
       I'm a software developer with a passion for <code>algorithms</code>,{' '}
       <cite>maths</cite> and everything in between!

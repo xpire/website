@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
+import { Switch } from '@material-ui/core';
+
+// import Link from './Link';
+import { SettingsContext } from './Context';
+import { lightTheme } from '@/styles/theme';
 
 const data = [
   { name: 'Home', color: 'blue', to: '/' },
@@ -11,12 +16,11 @@ const data = [
 ];
 
 const StyledHeader = styled(motion.header)`
-  background-color: #efefef; //#282c34;
-  // color: black;
   min-height: 10vh;
   display: flex;
   flex-direction: row;
   align-items: center;
+  align-self: center;
   justify-content: space-between;
   font-size: calc(10px + 2vmin);
 `;
@@ -29,7 +33,7 @@ const StyledTitle = styled(motion.h1)`
 
 const StyledMenuIcon = styled(motion.div)`
   max-height: 2em;
-  padding: 10px;
+  margin: 10px;
   z-index: 101;
 
   @media (min-width: 500px) {
@@ -39,7 +43,7 @@ const StyledMenuIcon = styled(motion.div)`
 
 const MenuIcon = ({ onClick }: { onClick: () => void }) => (
   <StyledMenuIcon onClick={onClick}>
-    <motion.svg width="20" height="20">
+    <motion.svg width="25" height="25">
       <motion.path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
     </motion.svg>
   </StyledMenuIcon>
@@ -52,7 +56,7 @@ const Backdrop = styled(motion.div)`
   z-index: 100;
   left: 0;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: ${({ theme }) => theme.backdrop};
   backdrop-filter: blur(5px);
 `;
 
@@ -61,12 +65,12 @@ const MobileNavItem = styled(motion.li)`
   display: flex;
   flex-direction: row;
   font-size: 30px;
-  margin: 20px;
+  margin: 40px;
 `;
 
 const BigNavigation = styled(motion.ol)`
   list-style: none;
-  padding: 20px;
+  padding: 0px 20px;
   margin: 0;
   user-select: none;
   display: flex;
@@ -121,25 +125,29 @@ const StyledLi = styled(motion.li)`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  // color: black;
+  background-image: none;
+  text-shadow: none;
 `;
 
-const MyHeader = ({
-  initialSelected,
-  location,
-}: {
-  initialSelected?: number;
-  location: any;
-}) => {
-  const [selected, setSelected] = useState(initialSelected || 0);
+const MyHeader = () => {
+  const { page, setPage, theme, setTheme } = useContext(SettingsContext);
+  // const [selected, setSelected] = useState(initialSelected || 0);
   const [isOpen, setOpen] = useState(false);
 
   return (
     <StyledHeader>
-      <StyledTitle>Justin Or</StyledTitle>
+      <StyledLink
+        to={'/'}
+        onClick={() => {
+          setPage('/');
+        }}
+      >
+        <StyledTitle>Justin Or</StyledTitle>
+      </StyledLink>
       <MenuIcon
         onClick={() => {
           setOpen(!isOpen);
-          console.log(isOpen);
         }}
       />
       <AnimatePresence>
@@ -149,20 +157,31 @@ const MyHeader = ({
             animate="visible"
             exit="hidden"
             variants={list}
+            // onClick={() => setOpen(false)}
           >
-            {data.map(({ name, to }, i) => (
-              <MobileNavItem variants={item} key={i}>
-                <StyledLink
-                  to={to}
-                  onClick={() => {
-                    setSelected(i);
-                    setOpen(false);
-                  }}
-                >
-                  {name}
-                </StyledLink>
-              </MobileNavItem>
-            ))}
+            {data.map(({ name, to }, i) => {
+              return (
+                <MobileNavItem variants={item} key={i}>
+                  <StyledLink
+                    to={to}
+                    onClick={() => {
+                      setPage(to);
+                      setOpen(false);
+                    }}
+                  >
+                    {name}
+                  </StyledLink>
+                </MobileNavItem>
+              );
+            })}
+            <MobileNavItem variants={item}>
+              <Switch
+                onChange={() => {
+                  setTheme(theme === 'light' ? 'dark' : 'light');
+                  console.log(theme);
+                }}
+              />
+            </MobileNavItem>
           </Backdrop>
         )}
       </AnimatePresence>
@@ -172,11 +191,11 @@ const MyHeader = ({
             <StyledLi
               initial={{ fontSize: '1em', color: 'black' }}
               animate={{
-                color: i === selected ? color : 'black',
+                color: to === page ? color : 'black',
               }}
               key={i}
             >
-              {i === selected && (
+              {to === page && (
                 <Underline
                   layoutId="underline"
                   style={{ backgroundColor: color }}
@@ -185,13 +204,21 @@ const MyHeader = ({
               <StyledLink
                 to={to}
                 onClick={() => {
-                  setSelected(i);
+                  setPage(to);
                 }}
               >
                 {name}
               </StyledLink>
             </StyledLi>
           ))}
+          <StyledLi>
+            <Switch
+              onChange={() => {
+                setTheme(theme === 'light' ? 'dark' : 'light');
+                console.log(theme);
+              }}
+            />
+          </StyledLi>
         </BigNavigation>
       </AnimateSharedLayout>
     </StyledHeader>

@@ -1,21 +1,24 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 
+// import { Breadcrumbs, Link as MLink, Typography } from '@material-ui/core';
+import Main from '../components/Main';
+
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark;
   const { previous, next } = pageContext;
 
   return (
-    <>
+    <Main>
       <article>
         <header>
-          <h1
+          <h2
             style={{
               marginBottom: 0,
             }}
           >
             {post.frontmatter.title}
-          </h1>
+          </h2>
           <p
             style={{
               display: `block`,
@@ -54,7 +57,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </li>
         </ul>
       </nav>
-    </>
+    </Main>
   );
 };
 

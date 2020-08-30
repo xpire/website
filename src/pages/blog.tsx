@@ -8,7 +8,7 @@ const Home: React.FC<PageProps> = ({ data }) => {
   const posts = data.allMarkdownRemark.edges;
   return (
     <Main>
-      <h1>Blog</h1>
+      <h2>Blog</h2>
       <p>Here are some things I have written about</p>
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug;
