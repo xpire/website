@@ -1,7 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 
 import { COLORS } from '../styles/theme';
-import { match } from 'assert';
 
 export type Settings = {
   page: string;
@@ -11,9 +10,15 @@ export type Settings = {
 };
 
 export const DefaultSettings = {
-  page: undefined,
+  page:
+    typeof window !== 'undefined'
+      ? (window.location.pathname.match(/^(\/[^\/]+)/) &&
+          window.location.pathname.match(/^(\/[^\/]+)/)[0]) ||
+        '/'
+      : '/',
   setPage: (page: string) => {},
   theme: undefined,
+  // theme: 'light', // getInitialColorMode(), // window.document.documentElement.style.getPropertyValue('--initial-color-mode'),
   setTheme: (theme: 'light' | 'dark') => {},
 };
 
@@ -27,13 +32,11 @@ export const SettingsProvider: React.FC = ({
   const [page, setPage] = useState(DefaultSettings.page);
   const [theme, setRawTheme] = useState(DefaultSettings.theme);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const theme = window.document.documentElement.style.getPropertyValue(
       '--initial-color-mode',
     );
     setRawTheme(theme);
-    const matchPage = window.location.pathname.match(/^(\/[^\/]+)/);
-    setPage((matchPage && matchPage[0]) || '/');
   }, []);
 
   const setTheme = (newValue: string) => {
@@ -44,12 +47,11 @@ export const SettingsProvider: React.FC = ({
     // 3. Update each color
     Object.entries(COLORS[newValue]).forEach(([name, colorByTheme]) => {
       const cssVarName = '--color-' + name;
-      if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined')
         window.document.documentElement.style.setProperty(
           cssVarName,
           colorByTheme as string,
         );
-      }
     });
   };
 

@@ -178,7 +178,7 @@ const MyHeader = () => {
             })}
             <MobileNavItem variants={item}>
               <Switch
-                checked={theme === 'dark' ? true : false}
+                checked={theme === 'light' ? false : true}
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
                   e.stopPropagation()
                 }
@@ -218,7 +218,7 @@ const MyHeader = () => {
           ))}
           <StyledLi>
             <Switch
-              checked={theme === 'dark' ? true : false}
+              checked={theme === 'light' ? false : true}
               onChange={() => {
                 setTheme(theme === 'light' ? 'dark' : 'light');
               }}
