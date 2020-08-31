@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
-import { GlobalStyles, lightTheme, darkTheme } from '../styles/theme';
+import { GlobalStyles } from '../styles/theme';
 import Header from './Header';
 import Footer from './Footer';
-import { DefaultSettings, SettingsContext, SettingsProvider } from './Context';
+import { SettingsProvider } from './Context';
 
 const Section = styled(motion.section)``;
 
@@ -14,28 +14,17 @@ const PageContents = styled(motion.div)`
   margin: auto;
 `;
 
-const MyThemeProvider: React.FC = ({ children }) => {
-  const { page, setPage, theme, setTheme } = useContext(SettingsContext);
-  return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      {children}
-    </ThemeProvider>
-  );
-};
-
 const Layout: React.FC = ({ children }) => {
   return (
     <SettingsProvider>
-      <MyThemeProvider>
-        <GlobalStyles />
-        <PageContents>
-          <Header />
-          <div style={{ minHeight: '75vh' }}>
-            <Section>{children}</Section>
-          </div>
-          <Footer />
-        </PageContents>
-      </MyThemeProvider>
+      <GlobalStyles />
+      <PageContents>
+        <Header />
+        <div style={{ minHeight: '75vh' }}>
+          <Section>{children}</Section>
+        </div>
+        <Footer />
+      </PageContents>
     </SettingsProvider>
   );
 };

@@ -8,7 +8,7 @@ const Home: React.FC<PageProps> = () => (
     <h2>Hello!</h2>
     <p>
       I'm a software developer with a passion for <code>algorithms</code>,{' '}
-      <cite>maths</cite> and everything in between!
+      <em>maths</em> and everything in between!
     </p>
     <p>
       In pursuit for better mobile support, I rebuilt my website mobile first on

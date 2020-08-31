@@ -33,17 +33,19 @@ const StyledTitle = styled(motion.h1)`
 
 const StyledMenuIcon = styled(motion.div)`
   max-height: 2em;
-  margin: 10px;
+  padding: 10px;
   z-index: 101;
+  display: flex;
+  align-items: center;
 
-  @media (min-width: 500px) {
+  @media (min-width: 600px) {
     display: none;
   }
 `;
 
 const MenuIcon = ({ onClick }: { onClick: () => void }) => (
   <StyledMenuIcon onClick={onClick}>
-    <motion.svg width="25" height="25">
+    <motion.svg width="40" height="40" viewBox="0 0 24 24">
       <motion.path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
     </motion.svg>
   </StyledMenuIcon>
@@ -56,7 +58,7 @@ const Backdrop = styled(motion.div)`
   z-index: 100;
   left: 0;
   top: 0;
-  background-color: ${({ theme }) => theme.backdrop};
+  background-color: var(--color-backdrop);
   backdrop-filter: blur(5px);
 `;
 
@@ -65,7 +67,8 @@ const MobileNavItem = styled(motion.li)`
   display: flex;
   flex-direction: row;
   font-size: 30px;
-  margin: 40px;
+  padding: 20px;
+  margin: 20px;
 `;
 
 const BigNavigation = styled(motion.ol)`
@@ -76,7 +79,7 @@ const BigNavigation = styled(motion.ol)`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `;
@@ -125,14 +128,13 @@ const StyledLi = styled(motion.li)`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  // color: black;
+  color: var(--color-text);
   background-image: none;
   text-shadow: none;
 `;
 
 const MyHeader = () => {
   const { page, setPage, theme, setTheme } = useContext(SettingsContext);
-  // const [selected, setSelected] = useState(initialSelected || 0);
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -157,7 +159,7 @@ const MyHeader = () => {
             animate="visible"
             exit="hidden"
             variants={list}
-            // onClick={() => setOpen(false)}
+            onClick={() => setOpen(false)}
           >
             {data.map(({ name, to }, i) => {
               return (
@@ -176,9 +178,12 @@ const MyHeader = () => {
             })}
             <MobileNavItem variants={item}>
               <Switch
+                checked={theme === 'light' ? false : true}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  e.stopPropagation()
+                }
                 onChange={() => {
                   setTheme(theme === 'light' ? 'dark' : 'light');
-                  console.log(theme);
                 }}
               />
             </MobileNavItem>
@@ -213,9 +218,9 @@ const MyHeader = () => {
           ))}
           <StyledLi>
             <Switch
+              checked={theme === 'light' ? false : true}
               onChange={() => {
                 setTheme(theme === 'light' ? 'dark' : 'light');
-                console.log(theme);
               }}
             />
           </StyledLi>
