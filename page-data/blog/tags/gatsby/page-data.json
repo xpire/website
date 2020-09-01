@@ -1,0 +1,1 @@
+{"componentChunkName":"component---src-templates-tags-page-tsx","path":"/blog/tags/gatsby/","result":{"data":{"allMarkdownRemark":{"totalCount":1,"edges":[{"node":{"fields":{"slug":"/blog/gatsby-is-cool/"},"frontmatter":{"title":"Gatsby has a lot of cool plugins","date":"September 01, 2020"}}}]}},"pageContext":{"tag":"gatsby"}}}

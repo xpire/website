@@ -1,0 +1,1 @@
+{"componentChunkName":"component---src-templates-tags-page-tsx","path":"/blog/tags/ctf/","result":{"data":{"allMarkdownRemark":{"totalCount":1,"edges":[{"node":{"fields":{"slug":"/blog/fword2020-ctf/"},"frontmatter":{"title":"Fword 2020 CTF write-up","date":"September 01, 2020"}}}]}},"pageContext":{"tag":"ctf"}}}
