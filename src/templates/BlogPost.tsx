@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
+import { Link, graphql, navigate } from 'gatsby';
 
-import { Breadcrumbs, Link as MLink, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Main from '../components/Main';
+import Chip from '../components/Chip';
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark;
@@ -19,6 +20,13 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           >
             {post.frontmatter.title}
           </h2>
+          <Grid container spacing={1}>
+            {post.frontmatter.tags.map((elem) => (
+              <Grid key={elem} item>
+                <Chip link={elem} />
+              </Grid>
+            ))}
+          </Grid>
           <p
             style={{
               display: `block`,
@@ -78,6 +86,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        tags
       }
     }
   }

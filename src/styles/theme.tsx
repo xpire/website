@@ -1,4 +1,38 @@
+import React, { useMemo } from 'react';
 import { createGlobalStyle } from 'styled-components';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+type Props = {
+  children: React.ReactNode;
+  darkMode: 'light' | 'dark';
+};
+
+export const MyThemeProvider: React.FunctionComponent<Props> = ({
+  children,
+  darkMode,
+}: Props) => {
+  const theme = useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          primary: {
+            main: COLORS.light.primary,
+            light: '#9A50B9',
+            dark: '#462255',
+          },
+          type: darkMode === 'dark' ? 'dark' : 'light',
+        },
+      }),
+    [darkMode],
+  );
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
+};
 
 export const GlobalStyles = createGlobalStyle`
   *,
@@ -28,6 +62,10 @@ export const GlobalStyles = createGlobalStyle`
     color: var(--color-text);
   }
 
+  a {
+    color: var(--color-primary);
+  }
+
   h1,h2,h3,h4,h5,h6 {
     color: var(--color-text);
   }
@@ -37,27 +75,11 @@ export const GlobalStyles = createGlobalStyle`
   }
   `;
 
-// export const lightTheme = {
-//   body: '#FFFFFF', //'#E2E2E2',
-//   text: '#363537',
-//   toggleBorder: '#FFF',
-//   backdrop: 'rgba(255, 255, 255, 0.7)',
-//   gradient: 'linear-gradient(#39598A, #79D7ED)',
-// };
-
-// export const darkTheme = {
-//   body: '#363537',
-//   text: '#FAFAFA',
-//   toggleBorder: '#6B8096',
-//   backdrop: 'rgba(0, 0, 0, 0.7)',
-//   gradient: 'linear-gradient(#091236, #1E215D)',
-// };
-
 export const COLORS = {
   light: {
     background: '#FFFFFF', //'#E2E2E2',
     text: '#363537',
-    primary: 'blue',
+    primary: '#ffa500', //orange
     toggleBorder: '#FFF',
     backdrop: 'rgba(255, 255, 255, 0.7)',
     gradient: 'linear-gradient(#39598A, #79D7ED)',
@@ -65,7 +87,7 @@ export const COLORS = {
   dark: {
     background: '#363537',
     text: '#FAFAFA',
-    primary: 'red',
+    primary: '#ffa500', //orange
     toggleBorder: '#6B8096',
     backdrop: 'rgba(0, 0, 0, 0.7)',
     gradient: 'linear-gradient(#091236, #1E215D)',

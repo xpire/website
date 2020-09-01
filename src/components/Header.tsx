@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { Switch } from '@material-ui/core';
+import { Switch } from './StyledMaterial';
 
 // import Link from './Link';
 import { SettingsContext } from './Context';

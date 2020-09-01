@@ -1,8 +1,8 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 
-import { GlobalStyles } from '../styles/theme';
+import { GlobalStyles, MyThemeProvider } from '../styles/theme';
 import Header from './Header';
 import Footer from './Footer';
 import { SettingsProvider } from './Context';
@@ -21,7 +21,9 @@ const Layout: React.FC = ({ children }) => {
       <PageContents>
         <Header />
         <div style={{ minHeight: '75vh' }}>
-          <Section>{children}</Section>
+          <AnimatePresence>
+            <Section>{children}</Section>
+          </AnimatePresence>
         </div>
         <Footer />
       </PageContents>
