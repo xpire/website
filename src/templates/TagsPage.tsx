@@ -3,7 +3,7 @@ import { Link, graphql } from 'gatsby';
 
 import Main from '../components/Main';
 
-const TagPageTemplate = ({ pageContext, data, location }) => {
+const TagPageTemplate = ({ pageContext, data }) => {
   const { tag } = pageContext;
   const { edges, totalCount } = data.allMarkdownRemark;
 

@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link, graphql, navigate } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 
 import { Grid } from '@material-ui/core';
 import Main from '../components/Main';
 import Chip from '../components/Chip';
 
-const BlogPostTemplate = ({ data, pageContext, location }) => {
+const BlogPostTemplate = ({ data, pageContext }) => {
   const post = data.markdownRemark;
   const { previous, next } = pageContext;
+
+  const toc = post.tableOfContents;
 
   return (
     <Main>
@@ -35,8 +37,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             {post.frontmatter.date}
           </p>
         </header>
+        <ul>{toc}</ul>
         <section dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr />
+        <hr style={{ backgroundColor: 'var(--color-text)' }} />
       </article>
 
       <nav>
@@ -87,6 +90,11 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
         tags
+      }
+      headings {
+        depth
+        id
+        value
       }
     }
   }

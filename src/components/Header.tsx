@@ -4,19 +4,17 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { Switch } from './StyledMaterial';
 
-// import Link from './Link';
 import { SettingsContext } from './Context';
-import { lightTheme } from '@/styles/theme';
 
 const data = [
-  { name: 'Home', color: 'blue', to: '/' },
-  { name: 'About', color: 'red', to: '/about' },
-  { name: 'Projects', color: 'green', to: '/projects' },
-  { name: 'Blog', color: 'orange', to: '/blog' },
+  { name: 'Home', to: '/', size: '1em' },
+  { name: 'About', to: '/about', size: '1em' },
+  { name: 'Projects', to: '/projects', size: '1em' },
+  { name: 'Blog', to: '/blog', size: '1em' },
 ];
 
 const StyledHeader = styled(motion.header)`
-  min-height: 10vh;
+  // min-height: 10vh;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -68,6 +66,7 @@ const MobileNavItem = styled(motion.li)`
   flex-direction: row;
   font-size: 30px;
   padding: 20px;
+  position: relative;
   margin: 20px;
 `;
 
@@ -112,12 +111,16 @@ const item = {
 };
 
 const Underline = styled(motion.div)`
-  width: 100%;
-  height: 0.1em;
-  border-radius: 0.05em;
-  background: black;
+  width: 110%;
+  left: -5%;
+  height: 110%;
+  top: -5%;
+  border-radius: 0.5em;
   position: absolute;
-  bottom: -0.05em;
+  mix-blend-mode: difference;
+  background-color: var(--color-text);
+  z-index: 102;
+  filter: contrast(2);
 `;
 
 const StyledLi = styled(motion.li)`
@@ -128,9 +131,9 @@ const StyledLi = styled(motion.li)`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: var(--color-text);
   background-image: none;
   text-shadow: none;
+  color: var(--color-text);
 `;
 
 const MyHeader = () => {
@@ -161,19 +164,40 @@ const MyHeader = () => {
             variants={list}
             onClick={() => setOpen(false)}
           >
+            <StyledLink
+              to="/"
+              onClick={() => {
+                setPage('/');
+                setOpen(false);
+              }}
+            >
+              <MobileNavItem variants={item} key={'home'}>
+                {''}
+              </MobileNavItem>
+            </StyledLink>
             {data.map(({ name, to }, i) => {
               return (
-                <MobileNavItem variants={item} key={i}>
-                  <StyledLink
-                    to={to}
-                    onClick={() => {
-                      setPage(to);
-                      setOpen(false);
-                    }}
-                  >
+                <StyledLink
+                  to={to}
+                  onClick={() => {
+                    setPage(to);
+                    setOpen(false);
+                  }}
+                >
+                  <MobileNavItem variants={item} key={i}>
+                    {to === page && (
+                      <Underline
+                        layoutId="underline"
+                        // transition={{ type: 'spring', stiffness: '30' }}
+                        style={{
+                          backdropFilter:
+                            theme === 'dark' ? 'none' : 'invert(100%)',
+                        }}
+                      />
+                    )}
                     {name}
-                  </StyledLink>
-                </MobileNavItem>
+                  </MobileNavItem>
+                </StyledLink>
               );
             })}
             <MobileNavItem variants={item}>
@@ -192,18 +216,15 @@ const MyHeader = () => {
       </AnimatePresence>
       <AnimateSharedLayout>
         <BigNavigation>
-          {data.map(({ name, color, to }, i) => (
-            <StyledLi
-              initial={{ fontSize: '1em', color: 'black' }}
-              animate={{
-                color: to === page ? color : 'black',
-              }}
-              key={i}
-            >
+          {data.map(({ name, size, to }, i) => (
+            <StyledLi key={i} style={{ fontSize: size }}>
               {to === page && (
                 <Underline
                   layoutId="underline"
-                  style={{ backgroundColor: color }}
+                  // transition={{ type: 'spring', stiffness: '30' }}
+                  style={{
+                    backdropFilter: theme === 'dark' ? 'none' : 'invert(100%)',
+                  }}
                 />
               )}
               <StyledLink

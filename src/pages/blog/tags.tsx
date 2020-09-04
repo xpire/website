@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageProps, Link, graphql } from 'gatsby';
+import { PageProps, graphql } from 'gatsby';
 import { Grid } from '@material-ui/core';
 
 import Main from '../../components/Main';

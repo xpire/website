@@ -1,13 +1,37 @@
 import React, { useState } from 'react';
-import { PageProps, Link, graphql, navigate } from 'gatsby';
+import { PageProps, Link, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import { Grid } from '@material-ui/core';
+import styled from 'styled-components';
 
 import Main from '../components/Main';
 import Chip from '../components/Chip';
-import { Input, TextField } from '../components/StyledMaterial';
+import { TextField } from '../components/StyledMaterial';
+import GatsbyPlaceholder from './gatsby-icon.png';
+
+const StyledArticle = styled.article`
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    text-align: center;
+  }
+`;
+
+const ThumbnailDiv = styled.div`
+  padding: 1rem 0rem;
+`;
+
+const ContentDiv = styled.div`
+  padding: 1rem;
+  text-align: left;
+`;
+
+const StyledH3 = styled.h3`
+  margin-top: 0px;
+`;
 
 const Home: React.FC<PageProps> = ({ data }) => {
-  const siteTitle = data.site.siteMetadata.title;
   const posts = data.allMarkdownRemark.edges;
 
   const emptyQuery = '';
@@ -46,30 +70,51 @@ const Home: React.FC<PageProps> = ({ data }) => {
       {search.filteredData.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug;
         return (
-          <article key={node.fields.slug}>
-            <header>
-              <h3>
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <Grid container spacing={1}>
-                {node.frontmatter.tags.map((elem) => (
-                  <Grid key={elem} item>
-                    <Chip link={elem} />
-                  </Grid>
-                ))}
-              </Grid>
-              <small>{node.frontmatter.date}</small>
-            </header>
-            <section>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </section>
-          </article>
+          <StyledArticle key={node.fields.slug}>
+            <ThumbnailDiv>
+              <Link to={node.fields.slug}>
+                {node.frontmatter.thumbnail ? (
+                  <Img
+                    fixed={node.frontmatter.thumbnail.childImageSharp.fixed}
+                  />
+                ) : (
+                  <img
+                    style={{
+                      maxWidth: '200px',
+                      maxHeight: '200px',
+                      minWidth: '200px',
+                      minHeight: '200px',
+                    }}
+                    src={GatsbyPlaceholder}
+                  />
+                )}
+              </Link>
+            </ThumbnailDiv>
+            <ContentDiv>
+              <header>
+                <StyledH3>
+                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                    {title}
+                  </Link>
+                </StyledH3>
+                <Grid container spacing={1}>
+                  {node.frontmatter.tags.map((elem) => (
+                    <Grid key={elem} item>
+                      <Chip link={elem} />
+                    </Grid>
+                  ))}
+                </Grid>
+                <small>{node.frontmatter.date}</small>
+              </header>
+              <section>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: node.frontmatter.description || node.excerpt,
+                  }}
+                />
+              </section>
+            </ContentDiv>
+          </StyledArticle>
         );
       })}
     </Main>
@@ -97,6 +142,13 @@ export const pageQuery = graphql`
             title
             description
             tags
+            thumbnail {
+              childImageSharp {
+                fixed(width: 200, height: 200) {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
           }
         }
       }

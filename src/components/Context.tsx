@@ -11,7 +11,7 @@ export type Settings = {
 
 export const DefaultSettings = {
   page:
-    typeof window !== 'undefined'
+    typeof window !== `undefined`
       ? (window.location.pathname.match(/^(\/[^\/]+)/) &&
           window.location.pathname.match(/^(\/[^\/]+)/)[0]) ||
         '/'

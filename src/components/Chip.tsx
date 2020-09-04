@@ -1,33 +1,14 @@
 import React from 'react';
-import { navigate, Link } from 'gatsby';
+import { navigate } from 'gatsby';
 import { kebabCase } from 'lodash';
-import { Chip } from '../components/StyledMaterial';
+import { Chip } from './StyledMaterial';
 
-const MyChip = ({ link, label }: { link: string; label?: string }) => {
-  if (typeof label === `undefined`) {
-    label = link;
-  }
-  return (
-    <Chip
-      label={label}
-      onClick={() => navigate(`/blog/tags/${kebabCase(link)}`)}
-    />
-  );
-};
+const MyChip = ({ link, label }: { link: string; label?: string }) => (
+  <Chip
+    label={typeof label === 'undefined' ? link : label}
+    size="small"
+    onClick={() => navigate(`/blog/tags/${kebabCase(link)}`)}
+  />
+);
 
 export default MyChip;
-
-{
-  /* <Chip
-variant="outlined"
-size="small"
-label={label}
-style={{
-  color: 'var(--color-text)',
-  borderColor: 'var(--color-text)',
-}}
-onClick={() => {
-  navigate(`/blog/tags/${label}`);
-}}
-/> */
-}

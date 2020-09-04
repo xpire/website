@@ -1,11 +1,33 @@
 import React, { useMemo } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 type Props = {
   children: React.ReactNode;
   darkMode: 'light' | 'dark';
+};
+
+export const COLORS = {
+  light: {
+    // background: '#FFFFFF',
+    background: '#EDEDED',
+    // text: '#000000',
+    text: '#363537',
+    primary: '#ffa500', // orange
+    toggleBorder: '#FFF',
+    backdrop: 'rgba(255, 255, 255, 0.7)',
+    // gradient: 'linear-gradient(#39598A, #79D7ED)',
+  },
+  dark: {
+    // background: '#000000',
+    background: '#363537',
+    // text: '#FFFFFF',
+    text: '#FAFAFA',
+    primary: '#ffa500', // orange
+    toggleBorder: '#6B8096',
+    backdrop: 'rgba(0, 0, 0, 0.7)',
+    // gradient: 'linear-gradient(#091236, #1E215D)',
+  },
 };
 
 export const MyThemeProvider: React.FunctionComponent<Props> = ({
@@ -18,20 +40,13 @@ export const MyThemeProvider: React.FunctionComponent<Props> = ({
         palette: {
           primary: {
             main: COLORS.light.primary,
-            light: '#9A50B9',
-            dark: '#462255',
           },
           type: darkMode === 'dark' ? 'dark' : 'light',
         },
       }),
     [darkMode],
   );
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -74,22 +89,3 @@ export const GlobalStyles = createGlobalStyle`
     fill: var(--color-text);
   }
   `;
-
-export const COLORS = {
-  light: {
-    background: '#FFFFFF', //'#E2E2E2',
-    text: '#363537',
-    primary: '#ffa500', //orange
-    toggleBorder: '#FFF',
-    backdrop: 'rgba(255, 255, 255, 0.7)',
-    gradient: 'linear-gradient(#39598A, #79D7ED)',
-  },
-  dark: {
-    background: '#363537',
-    text: '#FAFAFA',
-    primary: '#ffa500', //orange
-    toggleBorder: '#6B8096',
-    backdrop: 'rgba(0, 0, 0, 0.7)',
-    gradient: 'linear-gradient(#091236, #1E215D)',
-  },
-};

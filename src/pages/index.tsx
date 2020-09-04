@@ -7,7 +7,7 @@ const Home: React.FC<PageProps> = () => (
   <Main>
     <h2>Hello!</h2>
     <p>
-      I'm a software developer with a passion for <code>algorithms</code>,{' '}
+      I&apos;m a software developer with a passion for <code>algorithms</code>,{' '}
       <em>maths</em> and everything in between!
     </p>
     <p>
