@@ -29,7 +29,6 @@
   },
   "lint-staged": {
     "./src/**/*.{ts,js,jsx,tsx}": [
-      "yarn lint --fix",
       "yarn format"
     ]
   },
@@ -80,7 +79,6 @@
     "babel-plugin-root-import": "^6.5.0",
     "commitizen": "^4.0.4",
     "cz-conventional-changelog": "^3.1.0",
-    "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-import-resolver-root-import": "^1.0.4",
