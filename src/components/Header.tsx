@@ -118,7 +118,7 @@ const Underline = styled(motion.div)`
   border-radius: 0.5em;
   position: absolute;
   mix-blend-mode: difference;
-  background-color: var(--color-text);
+  background-color: white;
   z-index: 102;
   filter: contrast(2);
 `;
@@ -189,10 +189,10 @@ const MyHeader = () => {
                       <Underline
                         layoutId="underline"
                         // transition={{ type: 'spring', stiffness: '30' }}
-                        style={{
-                          backdropFilter:
-                            theme === 'dark' ? 'none' : 'invert(100%)',
-                        }}
+                        // style={{
+                        //   backdropFilter:
+                        //     theme === 'dark' ? 'none' : 'invert(100%)',
+                        // }}
                       />
                     )}
                     {name}
@@ -222,9 +222,9 @@ const MyHeader = () => {
                 <Underline
                   layoutId="underline"
                   // transition={{ type: 'spring', stiffness: '30' }}
-                  style={{
-                    backdropFilter: theme === 'dark' ? 'none' : 'invert(100%)',
-                  }}
+                  // style={{
+                  //   backdropFilter: theme === 'dark' ? 'none' : 'invert(100%)',
+                  // }}
                 />
               )}
               <StyledLink
