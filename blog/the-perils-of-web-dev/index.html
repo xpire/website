@@ -193,13 +193,10 @@ const StyledLink = styled(Link)`
 const Layout: React.FC = ({ children }) =&gt; {
   return (
     &lt;&gt;
-      &lt;GlobalStyles /&gt;
       &lt;ColorProvider&gt;
-        &lt;PageContents&gt;
-          &lt;Header /&gt;
-          {children}
-          &lt;Footer /&gt;
-        &lt;/PageContents&gt;
+        &lt;Header /&gt;
+        {children}
+        &lt;Footer /&gt;
       &lt;/ColorProvider&gt;
     &lt;/&gt;
   );
