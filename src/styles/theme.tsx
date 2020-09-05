@@ -14,7 +14,6 @@ export const COLORS = {
     // text: '#000000',
     text: '#363537',
     primary: '#ffa500', // orange
-    toggleBorder: '#FFF',
     backdrop: 'rgba(255, 255, 255, 0.7)',
     // gradient: 'linear-gradient(#39598A, #79D7ED)',
   },
@@ -24,7 +23,6 @@ export const COLORS = {
     // text: '#FFFFFF',
     text: '#FAFAFA',
     primary: '#ffa500', // orange
-    toggleBorder: '#6B8096',
     backdrop: 'rgba(0, 0, 0, 0.7)',
     // gradient: 'linear-gradient(#091236, #1E215D)',
   },
@@ -87,5 +85,9 @@ export const GlobalStyles = createGlobalStyle`
 
   svg {
     fill: var(--color-text);
+  }
+
+  blockquote {
+    border-left: 0.54375rem  solid var(--color-primary);
   }
   `;

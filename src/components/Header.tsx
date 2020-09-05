@@ -20,6 +20,8 @@ const StyledHeader = styled(motion.header)`
   align-items: center;
   align-self: center;
   justify-content: space-between;
+  // background-color: var(--color-background);
+  // transition: all 0.25s linear;
   font-size: calc(10px + 2vmin);
 `;
 
@@ -32,7 +34,7 @@ const StyledTitle = styled(motion.h1)`
 const StyledMenuIcon = styled(motion.div)`
   max-height: 2em;
   padding: 10px;
-  z-index: 101;
+  z-index: 20;
   display: flex;
   align-items: center;
 
@@ -53,7 +55,7 @@ const Backdrop = styled(motion.div)`
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 100;
+  z-index: 10;
   left: 0;
   top: 0;
   background-color: var(--color-backdrop);
@@ -67,6 +69,7 @@ const MobileNavItem = styled(motion.li)`
   font-size: 30px;
   padding: 20px;
   position: relative;
+  border-radius: 0.5em;
   margin: 20px;
 `;
 
@@ -119,8 +122,9 @@ const Underline = styled(motion.div)`
   position: absolute;
   mix-blend-mode: difference;
   background-color: white;
-  z-index: 102;
-  filter: contrast(2);
+  // background-color: white;
+  z-index: 11;
+  // filter: contrast(2);
 `;
 
 const StyledLi = styled(motion.li)`
@@ -184,17 +188,15 @@ const MyHeader = () => {
                     setOpen(false);
                   }}
                 >
-                  <MobileNavItem variants={item} key={i}>
-                    {to === page && (
-                      <Underline
-                        layoutId="underline"
-                        // transition={{ type: 'spring', stiffness: '30' }}
-                        // style={{
-                        //   backdropFilter:
-                        //     theme === 'dark' ? 'none' : 'invert(100%)',
-                        // }}
-                      />
-                    )}
+                  <MobileNavItem
+                    variants={item}
+                    key={i}
+                    style={{
+                      backgroundColor:
+                        to === page ? 'var(--color-text)' : 'none',
+                      color: to === page ? 'var(--color-background)' : 'none',
+                    }}
+                  >
                     {name}
                   </MobileNavItem>
                 </StyledLink>
@@ -237,7 +239,7 @@ const MyHeader = () => {
               </StyledLink>
             </StyledLi>
           ))}
-          <StyledLi>
+          <StyledLi style={{ width: '58px' }}>
             <Switch
               checked={theme === 'light' ? false : true}
               onChange={() => {

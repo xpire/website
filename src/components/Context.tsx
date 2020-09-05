@@ -15,7 +15,7 @@ export const DefaultSettings = {
       ? (window.location.pathname.match(/^(\/[^\/]+)/) &&
           window.location.pathname.match(/^(\/[^\/]+)/)[0]) ||
         '/'
-      : '/',
+      : undefined,
   setPage: (page: string) => {},
   theme: undefined,
   // theme: 'light', // getInitialColorMode(), // window.document.documentElement.style.getPropertyValue('--initial-color-mode'),

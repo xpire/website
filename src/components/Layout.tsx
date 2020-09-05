@@ -9,6 +9,12 @@ import Header from './Header';
 import Footer from './Footer';
 import { SettingsProvider } from './Context';
 
+const ColorProvider = styled.div`
+  background: var(--color-background);
+  color: var(--color-text);
+  transition: all 0.25s linear;
+`;
+
 const Section = styled(motion.section)``;
 
 const PageContents = styled(motion.div)`
@@ -21,15 +27,17 @@ const Layout: React.FC = ({ children }) => {
   return (
     <SettingsProvider>
       <GlobalStyles />
-      <PageContents>
-        <Header />
-        <div style={{ minHeight: '75vh' }}>
-          <AnimatePresence>
-            <Section>{children}</Section>
-          </AnimatePresence>
-        </div>
-        <Footer />
-      </PageContents>
+      <ColorProvider>
+        <PageContents>
+          <Header />
+          <div style={{ minHeight: '75vh' }}>
+            <AnimatePresence>
+              <Section>{children}</Section>
+            </AnimatePresence>
+          </div>
+          <Footer />
+        </PageContents>
+      </ColorProvider>
     </SettingsProvider>
   );
 };
