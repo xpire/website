@@ -11,7 +11,7 @@ When I first came up with the idea to highlight the current page with a rounded 
 
 Lets go through some of the blood sweat and tears I went through so you don't have to go through the same!
 
-# inverting colors
+# Inverting Colors
 
 Essentially, I saw this css-tricks article about [contrasting text backgrounds](https://css-tricks.com/methods-contrasting-text-backgrounds/) which involved using the `mix-blend-mode: difference;` CSS on the foreground so that it would invert its background. This would work flawlessly for the dark background with white foreground, and its also the example they gave in this article:
 
@@ -28,11 +28,11 @@ h2 {
 
 However, try to do it for the opposite case and things come crashing down.
 
-## Try 1: `backdrop-filter`
+## Try 1: backdrop-filter
 
 I initially tried using this CSS, which applies a filter to the background of this image - this is actually how I have blurred everything when a user clicks the sandwich menu in mobile view. When combined with `contrast(2)` I was able to get commendable results on chrome. However, as soon as I tried using the website with firefox, the backdrop filter was no where to be found! This is because Mozilla Firefox have [hidden the feature behind an experimental flag](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter)...
 
-## Try 2: back to `mix-blend-mode`
+## Try 2: back to mix-blend-mode
 
 So I went back to the original method, and decided on figuring out how to have this inverted color idea work for both light and dark modes. Essentially, I've found that I need to do the following things:
 
@@ -51,7 +51,7 @@ So many times, it would either only work in chrome, only work in firefox, only d
 
 In code, here is a watered down example consisting only the color variables required to pull off this effect:
 
-```tsx
+```jsx
 // styles
 const ColorProvider = styled.div`
   background: var(--color-background);
@@ -95,7 +95,7 @@ However, even without `<CssBaseline />`, things were still going sour, FOUC was 
 
 TURNS OUT: I've been applying global styles through a component `createGlobalStyle` from `'styled-components'`. This applied a style to the body which set the `background-color` and `color`. It doesn't seem to work immediately on page load, resulting in a flash of white in dark mode, before a transition to the proper color. So now, I create my own div styled with in-line CSS defining those color css variables. The result works like a charm!
 
-```tsx
+```jsx
 const ColorProvider = styled.div`
   background: var(--color-background);
   color: var(--color-text);
@@ -105,13 +105,10 @@ const ColorProvider = styled.div`
 const Layout: React.FC = ({ children }) => {
   return (
     <>
-      <GlobalStyles />
       <ColorProvider>
-        <PageContents>
-          <Header />
-          {children}
-          <Footer />
-        </PageContents>
+        <Header />
+        {children}
+        <Footer />
       </ColorProvider>
     </>
   );
