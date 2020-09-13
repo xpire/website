@@ -1,0 +1,1 @@
+{"componentChunkName":"component---src-templates-tags-page-tsx","path":"/blog/tags/react/","result":{"data":{"allMarkdownRemark":{"totalCount":1,"edges":[{"node":{"fields":{"slug":"/projects/sphinx/"},"frontmatter":{"title":"sphinx password store","date":"September 01, 2020"}}}]}},"pageContext":{"tag":"React"}}}
